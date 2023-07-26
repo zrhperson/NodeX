@@ -1,13 +1,25 @@
 const Koa = require("koa");
-const Router = require('@koa/router');
+const Router = require("@koa/router");
 const app = new Koa();
 const router = new Router();
-router.get('/test', (ctx, next) => {
-    ctx.body = 'test';
+
+// 中间件
+app.use(async (ctx, next) => {
+  console.log("middleware1 - start");
+  await next();
+  console.log("middleware1 - end");
 });
-router.get('/test/:id', (ctx, next) => {
-    ctx.body = `params: ${ctx.params.id}`;
+
+// logger
+app.use(async (ctx, next) => {
+  console.log("middleware2 - start");
+  await next();
+  console.log("middleware2 - end");
 });
-app.use(router.routes())
+
+router.get("/test", (ctx, next) => {
+  ctx.body = "test";
+});
+app.use(router.routes());
 
 app.listen(3000);

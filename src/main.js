@@ -1,7 +1,4 @@
 // NodeX
-const Application = require('./application.js'); //app
-function NodeX(){
-    console.log('NodeX===>');
-	return new Application(); //app对象
-}
+const NodeX = require('./application.js'); //app
+
 module.exports = NodeX;
